@@ -43,5 +43,23 @@ final public class OverlayHostingController<Content: View>: CocoaHostingControll
         updateHandler?(self)
         shouldUpdate = true
     }
+#elseif canImport(Cocoa)
+    public override func viewDidLayout() {
+        super.viewDidLayout()
+        
+        if shouldUpdate {
+            updateHandler?(self)
+            shouldUpdate = false
+        } else {
+            shouldUpdate = true
+        }
+    }
+
+    public override func viewDidAppear() {
+        super.viewDidAppear()
+
+        updateHandler?(self)
+        shouldUpdate = true
+    }
 #endif
 }
