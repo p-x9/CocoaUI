@@ -2,6 +2,13 @@
 
 Obtain and customize UIKit/Cocoa objects from SwiftUI components.
 
+<!-- # Badges -->
+
+[![Github issues](https://img.shields.io/github/issues/p-x9/CocoaUI)](https://github.com/p-x9/CocoaUI/issues)
+[![Github forks](https://img.shields.io/github/forks/p-x9/CocoaUI)](https://github.com/p-x9/CocoaUI/network/members)
+[![Github stars](https://img.shields.io/github/stars/p-x9/CocoaUI)](https://github.com/p-x9/CocoaUI/stargazers)
+[![Github top language](https://img.shields.io/github/languages/top/p-x9/CocoaUI)](https://github.com/p-x9/CocoaUI/)
+
 ## Demo
 For example, Slider uses UISlider internally.
 Therefore, it can be customized by directly referencing the UISlider object as follows.
