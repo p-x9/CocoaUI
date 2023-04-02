@@ -14,7 +14,7 @@ Therefore, it can be customized by directly referencing the UISlider object as f
 ```
 
 ## Document
-For components conforming to the protocol named `CocoaBridging`, you can get UIKit/Cocoa objects as follows.
+For components conforming to the protocol named `CocoaViewBridging`, you can get UIKit/Cocoa objects as follows.
 </br>
 The CocoaBriding protocol defines a `DefaultCocoaType`.　　
 For example, for Toggle, the DefaultCocoaType is UISwitch(iOS).　　
@@ -41,7 +41,7 @@ If the specified type is not found, the closure will not be called.
 
 ### Support additional component
 ```swift
-extension XXView: CocoaBridging { // confirms `CocoaBridging`
+extension XXView: CocoaViewBridging { // confirms `CocoaViewBridging`
     public typealias DefaultCocoaType = XXCocoaView // UIKit/Cocoa type
 }
 ```
@@ -67,3 +67,8 @@ This may vary depending on the operating system and usage conditions.
 | |.checkbox|-| NSButton |
 |TextEditor|-|UITextView|NSTextView|
 |Button|-|-|NSButton|
+|TabView|-|UITabBarController|NSTabView|
+|NavigationView|DoubleColumn|UISplitViewController|NSSplitView|
+||Stack|UINavigationController|-|
+|NavigationStack|-|UINavigationController|?|
+|NavgationSplitView|-|UISplitViewController|NSSplitView|

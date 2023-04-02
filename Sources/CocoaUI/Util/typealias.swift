@@ -32,12 +32,6 @@ public typealias CocoaViewControllerRepresentable = NSViewControllerRepresentabl
 #endif
 
 #if canImport(UIKit)
-public typealias CocoaHostingController = UIHostingController
-#elseif canImport(Cocoa)
-public typealias CocoaHostingController = NSHostingController
-#endif
-
-#if canImport(UIKit)
 public typealias CocoaScrollView = UIScrollView
 #elseif canImport(Cocoa)
 public typealias CocoaScrollView = NSScrollView
@@ -91,3 +85,17 @@ public typealias CocoaColorWell = UIColorWell
 #elseif canImport(Cocoa)
 public typealias CocoaColorWell = NSColorWell
 #endif
+
+// MARK:- Controller
+#if canImport(UIKit)
+public typealias CocoaHostingController = UIHostingController
+#elseif canImport(Cocoa)
+public typealias CocoaHostingController = NSHostingController
+#endif
+
+#if canImport(UIKit)
+public typealias CocoaViewController = UIViewController
+#elseif canImport(Cocoa)
+public typealias CocoaViewController = NSViewController
+#endif
+

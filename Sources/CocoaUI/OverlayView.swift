@@ -6,9 +6,9 @@
 //  
 //
 
-import Foundation
+import SwiftUI
 
-struct OverlayView<Content: CocoaBridging, CocoaType: CocoaView>: CocoaViewControllerRepresentable {
+struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepresentable {
     let content: () -> Content
     let customize: (CocoaType) -> Void
 
@@ -17,26 +17,36 @@ struct OverlayView<Content: CocoaBridging, CocoaType: CocoaView>: CocoaViewContr
         self.customize = customize
     }
 
+    func update(_ controller: CocoaViewController) {
+        if CocoaType.isSubclass(of: CocoaView.self) {
+            guard let typed = controller.view.find(for: CocoaType.self) else {
+                return
+            }
+            customize(typed)
+        }
+
+        if CocoaType.isSubclass(of: CocoaViewController.self) {
+            guard let typed = controller.find(for: CocoaType.self) else {
+                return
+            }
+            customize(typed)
+        }
+    }
+
 #if canImport(UIKit)
     typealias UIViewControllerType = OverlayHostingController<Content>
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let controller = OverlayHostingController(rootView: content())
         controller.updateHandler = { controller in
-            guard let typed = controller.view.findChild(for: CocoaType.self) else {
-                return
-            }
-            customize(typed)
+            update(controller)
         }
         return controller
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         DispatchQueue.main.async {
-            guard let typed = uiViewController.view.findChild(for: CocoaType.self) else {
-                return
-            }
-            customize(typed)
+            update(uiViewController)
             uiViewController.shouldUpdate = true
         }
     }
@@ -46,20 +56,14 @@ struct OverlayView<Content: CocoaBridging, CocoaType: CocoaView>: CocoaViewContr
     func makeNSViewController(context: Context) -> NSViewControllerType {
         let controller = OverlayHostingController(rootView: content())
         controller.updateHandler = { controller in
-            guard let typed = controller.view.findChild(for: CocoaType.self) else {
-                return
-            }
-            customize(typed)
+            update(controller)
         }
         return controller
     }
 
     func updateNSViewController(_ nsViewController: NSViewControllerType, context: Context) {
         DispatchQueue.main.async {
-            guard let typed = nsViewController.view.findChild(for: CocoaType.self) else {
-                return
-            }
-            customize(typed)
+            update(nsViewController)
             nsViewController.shouldUpdate = true
         }
     }

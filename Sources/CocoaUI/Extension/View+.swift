@@ -7,11 +7,24 @@
 //
 
 extension CocoaView {
-    func findChild<T>(for type: T.Type) -> T? {
+    func find<T>(for type: T.Type) -> T? {
         for subview in subviews {
             if let typed = subview as? T {
                 return typed
-            } else if let typed = subview.findChild(for: type) {
+            } else if let typed = subview.find(for: type) {
+                return typed
+            }
+        }
+        return self as? T
+    }
+}
+
+extension CocoaViewController {
+    func find<T>(for type: T.Type) -> T? {
+        for child in children {
+            if let typed = child as? T {
+                return typed
+            } else if let typed = child.find(for: type) {
                 return typed
             }
         }
