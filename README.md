@@ -12,6 +12,7 @@ Therefore, it can be customized by directly referencing the UISlider object as f
         slider.setThumbImage(.init(systemName: "swift"), for: .normal)
     }
 ```
+![Slider](https://user-images.githubusercontent.com/50244599/229353608-86eb9a3c-815e-4919-9f44-1cc35d244d7e.png)
 
 ## Document
 For components conforming to the protocol named `CocoaViewBridging`, you can get UIKit/Cocoa objects as follows.
