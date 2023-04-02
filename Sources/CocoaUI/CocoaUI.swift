@@ -35,6 +35,14 @@ extension Stepper: CocoaBridging {
     public typealias DefaultCocoaType = CocoaStepper
 }
 
+extension Picker: CocoaBridging {
+#if canImport(UIKit)
+    public typealias DefaultCocoaType = UIPickerView
+#elseif canImport(Cocoa)
+    public typealias DefaultCocoaType = NSButton
+#endif
+}
+
 extension DatePicker: CocoaBridging {
     public typealias DefaultCocoaType = CocoaDatePicker
 }
