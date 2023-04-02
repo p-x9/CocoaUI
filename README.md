@@ -39,6 +39,13 @@ Toggle("Hello", isOn: .constant(true))
 
 If the specified type is not found, the closure will not be called.
 
+### Support additional component
+```swift
+extension XXView: CocoaBridging { // confirms `CocoaBridging`
+    public typealias DefaultCocoaType = XXCocoaView // UIKit/Cocoa type
+}
+```
+
 ## SwiftUI and Cocoa correspondence table
 This may vary depending on the operating system and usage conditions.
 
