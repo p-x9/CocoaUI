@@ -15,7 +15,6 @@
 		429EDC8929D742F300D75C2E /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EDC8829D742F300D75C2E /* ExampleUITests.swift */; };
 		429EDC8B29D742F300D75C2E /* ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429EDC8A29D742F300D75C2E /* ExampleUITestsLaunchTests.swift */; };
 		429EDC9B29D7431800D75C2E /* CocoaUI in Frameworks */ = {isa = PBXBuildFile; productRef = 429EDC9A29D7431800D75C2E /* CocoaUI */; };
-		429EDC9E29D8879800D75C2E /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 429EDC9D29D8879800D75C2E /* Introspect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				429EDC9B29D7431800D75C2E /* CocoaUI in Frameworks */,
-				429EDC9E29D8879800D75C2E /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +167,6 @@
 			name = Example;
 			packageProductDependencies = (
 				429EDC9A29D7431800D75C2E /* CocoaUI */,
-				429EDC9D29D8879800D75C2E /* Introspect */,
 			);
 			productName = Example;
 			productReference = 429EDC6929D742F000D75C2E /* Example.app */;
@@ -244,7 +241,6 @@
 			);
 			mainGroup = 429EDC6029D742F000D75C2E;
 			packageReferences = (
-				429EDC9C29D8879800D75C2E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 429EDC6A29D742F000D75C2E /* Products */;
 			projectDirPath = "";
@@ -642,26 +638,10 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		429EDC9C29D8879800D75C2E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
 		429EDC9A29D7431800D75C2E /* CocoaUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CocoaUI;
-		};
-		429EDC9D29D8879800D75C2E /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 429EDC9C29D8879800D75C2E /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
