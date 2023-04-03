@@ -46,6 +46,7 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         DispatchQueue.main.async {
+            uiViewController.rootView = content()
             update(uiViewController)
             uiViewController.shouldUpdate = true
         }
@@ -63,6 +64,7 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
 
     func updateNSViewController(_ nsViewController: NSViewControllerType, context: Context) {
         DispatchQueue.main.async {
+            nsViewController.rootView = content()
             update(nsViewController)
             nsViewController.shouldUpdate = true
         }
