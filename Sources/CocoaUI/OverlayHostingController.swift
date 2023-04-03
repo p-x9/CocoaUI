@@ -21,7 +21,7 @@ final public class OverlayHostingController<Content: View>: CocoaHostingControll
 #if canImport(UIKit)
     public override func didMove(toParent parent: UIViewController?) {
         super.didMove(toParent: parent)
-        
+
         updateHandler?(self)
         shouldUpdate = true
     }
@@ -38,7 +38,7 @@ final public class OverlayHostingController<Content: View>: CocoaHostingControll
     }
 
     public override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
 
         updateHandler?(self)
         shouldUpdate = true
@@ -46,7 +46,7 @@ final public class OverlayHostingController<Content: View>: CocoaHostingControll
 #elseif canImport(Cocoa)
     public override func viewDidLayout() {
         super.viewDidLayout()
-        
+
         if shouldUpdate {
             updateHandler?(self)
             shouldUpdate = false

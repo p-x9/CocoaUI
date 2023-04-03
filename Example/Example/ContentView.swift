@@ -14,6 +14,9 @@ struct ContentView: View {
     @State var toggle: Bool = true
     @State var isScrolled = false
 
+    @State var text = "Hello"
+    @State var stepperValue = 8
+
     var body: some View {
         NavigationView {
             VStack(spacing: 4) {
@@ -44,7 +47,7 @@ struct ContentView: View {
 #endif
                 }
 
-                TextField("textField", text: .constant("Hello"))
+                TextField("textField", text: $text)
                     .cocoa { textField in
 #if canImport(UIKit)
                         textField.borderStyle = .roundedRect
@@ -70,7 +73,7 @@ struct ContentView: View {
                     }
                     .padding(.vertical)
 
-                Toggle("Hello", isOn: $toggle)
+                Toggle(toggle ? "on" : "off", isOn: $toggle)
                     .cocoa { `switch` in
 #if canImport(UIKit)
                         `switch`.onTintColor = .red
@@ -82,7 +85,7 @@ struct ContentView: View {
 #endif
                     }
 
-                Stepper("stepper", value: .constant(8))
+                Stepper("stepper", value: $stepperValue)
                     .cocoa { stepper in
 #if canImport(UIKit)
                         stepper.stepValue = 2
@@ -136,13 +139,11 @@ struct ContentView: View {
                     button.layer?.borderWidth = 8
 #endif
                 }
-
             }
             .padding()
         }
         .cocoa { split in
             print(split)
-
         }
     }
 }
