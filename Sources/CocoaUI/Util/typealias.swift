@@ -50,6 +50,15 @@ public typealias CocoaTextField = NSTextField
 #endif
 
 #if canImport(UIKit)
+public typealias CocoaTextView = UITextView
+#elseif canImport(Cocoa)
+public typealias CocoaTextView = NSTextView
+#endif
+
+// MARK: - iOS and macOS only
+#if os(iOS) || os(macOS)
+
+#if canImport(UIKit)
 public typealias CocoaSwitch = UISwitch
 #elseif canImport(Cocoa)
 public typealias CocoaSwitch = NSSwitch
@@ -74,19 +83,15 @@ public typealias CocoaDatePicker = NSDatePicker
 #endif
 
 #if canImport(UIKit)
-public typealias CocoaTextView = UITextView
-#elseif canImport(Cocoa)
-public typealias CocoaTextView = NSTextView
-#endif
-
-#if canImport(UIKit)
 @available(iOS 14.0, *)
 public typealias CocoaColorWell = UIColorWell
 #elseif canImport(Cocoa)
 public typealias CocoaColorWell = NSColorWell
 #endif
 
-// MARK:- Controller
+#endif
+
+// MARK: - Controller
 #if canImport(UIKit)
 public typealias CocoaHostingController = UIHostingController
 #elseif canImport(Cocoa)
