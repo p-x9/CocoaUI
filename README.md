@@ -61,7 +61,9 @@ This may vary depending on the operating system and usage conditions.
 |:----:|:----:|:----:|:----:|:----:|
 |ScrollView|-| UIScrollView|NSScrollView|UIScrollView|
 |List|-| UICollectionView(>=iOS16) UITableView(<iOS16)|NSTableView|UITableView|
+|Form|-| UICollectionView(>=iOS16) UITableView(<iOS16)|?|UITableView|
 |TextField|-| UITextField|NSTextField|UITextField|
+|SecureField|-| UITextField|NSTextField|UITextField|
 |Slider|-|UISlider|NSSlider|-|
 |Stepper|-|UIStepper|NSStepper|-|
 |Picker|Wheel|UIPickerView|NSButton|-|
@@ -69,12 +71,15 @@ This may vary depending on the operating system and usage conditions.
 ||Segmented|UISegmentedControl|NSSegmentedControl|UISegmentedControl|
 ||Menu|?|NSButton|-|
 |DatePicker|-|UIDatePicker|NSDatePicker|-|
+|MultiDatePicker|-|UICalendarView|-|-|
 |ColorPicker|-|UIColorWell|NSColorWell|-|
 |Toggle|.switch|UISwitch| NSSwitch |-|
 | |.button|UIButton| NSButton |-|
 | |.checkbox|-| NSButton |-|
 |TextEditor|-|UITextView|NSTextView|-|
 |Button|-|-|NSButton|-|
+|ProgressView|.linear|UIProgressView|NSProgressIndicator|UIProgressView|
+||.circular|UIActivityIndicatorView|NSProgressIndicator|UIActivityIndicatorView|
 |TabView|-|UITabBarController|NSTabView|UITabBarController|
 |NavigationView|DoubleColumn|UISplitViewController|NSSplitView|-|
 ||Stack|UINavigationController|-|UINavigationController|
