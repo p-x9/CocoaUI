@@ -128,17 +128,6 @@ struct ContentView: View {
 #endif
                 }
 
-                Button("button") {
-                    print("button")
-                }
-                .cocoa { button in
-#if canImport(UIKit)
-                    button.layer.borderWidth = 1
-#elseif canImport(Cocoa)
-                    button.wantsLayer = true
-                    button.layer?.borderWidth = 8
-#endif
-                }
             }
             .padding()
         }

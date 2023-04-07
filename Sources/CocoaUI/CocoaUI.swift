@@ -18,15 +18,18 @@ extension TextField: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaTextField
 }
 
-extension Toggle: CocoaViewBridging {
-    /// NOTE: Depending on the `ToggleStyle`, Cocoa types are different.
-    #if canImport(UIKit)
-    public typealias DefaultCocoaType = UISwitch
-    #elseif canImport(Cocoa)
+extension Picker: CocoaViewBridging {
+#if canImport(UIKit) && os(iOS)
+    public typealias DefaultCocoaType = UIPickerView
+#elseif canImport(Cocoa)
     public typealias DefaultCocoaType = NSButton
-    #endif
+#elseif canImport(UIKit) && os(tvOS)
+    public typealias DefaultCocoaType = UISegmentedControl
+#endif
 }
 
+// MARK: - macOS and iOS only
+#if os(iOS) || os(macOS)
 extension Slider: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaSlider
 }
@@ -35,22 +38,8 @@ extension Stepper: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaStepper
 }
 
-extension Picker: CocoaViewBridging {
-#if canImport(UIKit)
-    public typealias DefaultCocoaType = UIPickerView
-#elseif canImport(Cocoa)
-    public typealias DefaultCocoaType = NSButton
-#endif
-}
-
 extension DatePicker: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaDatePicker
-}
-
-@available(iOS 14.0, *)
-@available(macOS 11.0, *)
-extension TextEditor: CocoaViewBridging {
-    public typealias DefaultCocoaType = CocoaTextView
 }
 
 @available(iOS 14.0, *)
@@ -59,24 +48,30 @@ extension ColorPicker: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaColorWell
 }
 
-extension Button: CocoaViewBridging {
+extension Toggle: CocoaViewBridging {
+    /// NOTE: Depending on the `ToggleStyle`, Cocoa types are different.
 #if canImport(UIKit)
-    public typealias DefaultCocoaType = UIPickerView
+    public typealias DefaultCocoaType = UISwitch
 #elseif canImport(Cocoa)
     public typealias DefaultCocoaType = NSButton
 #endif
 }
 
-#if canImport(UIKit)
-extension NavigationView: CocoaViewControllerBridging {
-    public typealias DefaultCocoaType = UISplitViewController
-}
-#elseif canImport(Cocoa)
-extension NavigationView: CocoaViewBridging {
-    public typealias DefaultCocoaType = NSSplitView
+@available(iOS 14.0, *)
+@available(macOS 11.0, *)
+extension TextEditor: CocoaViewBridging {
+    public typealias DefaultCocoaType = CocoaTextView
 }
 #endif
 
+// MARK: - macOS only
+#if os(macOS) && canImport(Cocoa)
+extension Button: CocoaViewBridging {
+    public typealias DefaultCocoaType = NSButton
+}
+#endif
+
+// MARK: - Tab and Navigation
 #if canImport(UIKit)
 extension TabView: CocoaViewControllerBridging {
     public typealias DefaultCocoaType = UITabBarController
@@ -84,6 +79,20 @@ extension TabView: CocoaViewControllerBridging {
 #elseif canImport(Cocoa)
 extension TabView: CocoaViewBridging {
     public typealias DefaultCocoaType = NSTabView
+}
+#endif
+
+#if canImport(UIKit) && os(iOS)
+extension NavigationView: CocoaViewControllerBridging {
+    public typealias DefaultCocoaType = UISplitViewController
+}
+#elseif canImport(Cocoa)
+extension NavigationView: CocoaViewBridging {
+    public typealias DefaultCocoaType = NSSplitView
+}
+#elseif canImport(UIKit) && os(tvOS)
+extension NavigationView: CocoaViewControllerBridging {
+    public typealias DefaultCocoaType = UINavigationController
 }
 #endif
 
@@ -99,6 +108,7 @@ extension NavigationStack: CocoaViewControllerBridging {
 //}
 #endif
 
+#if os(iOS) || os(macOS)
 #if canImport(UIKit)
 @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, *)
 extension NavigationSplitView: CocoaViewControllerBridging {
@@ -109,4 +119,5 @@ extension NavigationSplitView: CocoaViewControllerBridging {
 extension NavigationSplitView: CocoaViewBridging {
     public typealias DefaultCocoaType = NSSplitView
 }
+#endif
 #endif
