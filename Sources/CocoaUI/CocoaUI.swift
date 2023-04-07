@@ -14,7 +14,23 @@ extension List: CocoaViewBridging {
     #endif
 }
 
+@available(iOS 14.0, *)
+@available(macOS 11.0, *)
+@available(tvOS 14.0, *)
+extension ProgressView: CocoaViewBridging {
+#if canImport(UIKit)
+    public typealias DefaultCocoaType = UIProgressView
+#elseif canImport(Cocoa)
+    public typealias DefaultCocoaType = NSProgressIndicator
+#endif
+}
+
+
 extension TextField: CocoaViewBridging {
+    public typealias DefaultCocoaType = CocoaTextField
+}
+
+extension SecureField: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaTextField
 }
 
@@ -27,6 +43,19 @@ extension Picker: CocoaViewBridging {
     public typealias DefaultCocoaType = UISegmentedControl
 #endif
 }
+
+// MARK: - iOS and tvOS only
+#if os(iOS) || os(tvOS)
+extension Form: CocoaViewBridging {
+#if os(iOS)
+    /// NOTE: Definition for iOS 16 or later
+    /// < iOS16 `UITableView`
+    public typealias DefaultCocoaType = UICollectionView
+#elseif os(tvOS)
+    public typealias DefaultCocoaType = UITableView
+#endif
+}
+#endif
 
 // MARK: - macOS and iOS only
 #if os(iOS) || os(macOS)
@@ -61,6 +90,14 @@ extension Toggle: CocoaViewBridging {
 @available(macOS 11.0, *)
 extension TextEditor: CocoaViewBridging {
     public typealias DefaultCocoaType = CocoaTextView
+}
+#endif
+
+// MARK: - iOS only
+#if os(iOS)
+@available(iOS 16.0, *)
+extension MultiDatePicker: CocoaViewBridging {
+    public typealias DefaultCocoaType = UICalendarView
 }
 #endif
 
