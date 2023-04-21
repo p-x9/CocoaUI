@@ -13,27 +13,18 @@ public protocol CocoaViewBridging: SwiftUI.View {
 }
 
 extension CocoaViewBridging {
-    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> some View {
+    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> CocoaBridgeView<Self, DefaultCocoaType> {
         inject(type: DefaultCocoaType.self, handler: handler)
     }
 
-    public func cocoa<T: CocoaView>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> some View {
+    public func cocoa<T: CocoaView>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
         inject(type: type, handler: handler)
     }
 }
 
 extension CocoaViewBridging {
-    private func inject<T: CocoaView>(type: T.Type, handler: @escaping ((T) -> Void)) -> some View {
-        self
-            .hidden()
-            .allowsHitTesting(true)
-            .overlay(OverlayView(
-                for: type,
-                content: {
-                    self
-                }, customize: {
-                    handler($0)
-                }))
+    private func inject<T: CocoaView>(type: T.Type, handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
+        CocoaBridgeView(self, customize: handler)
     }
 }
 
@@ -42,30 +33,17 @@ public protocol CocoaViewControllerBridging: SwiftUI.View {
 }
 
 extension CocoaViewControllerBridging {
-    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> some View {
+    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> CocoaBridgeView<Self, DefaultCocoaType> {
         inject(type: DefaultCocoaType.self, handler: handler)
     }
 
-    public func cocoa<T: CocoaViewController>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> some View {
+    public func cocoa<T: CocoaViewController>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
         inject(type: type, handler: handler)
     }
 }
 
 extension CocoaViewControllerBridging {
-    private func inject<T: CocoaViewController>(type: T.Type, handler: @escaping ((T) -> Void)) -> some View {
-        self
-            .hidden()
-            .allowsHitTesting(true)
-            .overlay(
-                OverlayView(
-                    for: type,
-                    content: {
-                        self
-                    },
-                    customize: {
-                        handler($0)
-                    }
-                )
-            )
+    private func inject<T: CocoaViewController>(type: T.Type, handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
+        CocoaBridgeView(self, customize: handler)
     }
 }

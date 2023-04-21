@@ -29,6 +29,18 @@ struct ContentView: View {
                         slider.layer?.borderWidth = 1
 #endif
                     }
+                    .onViewDidAppear { slider in
+                        print("onViewDidAppear \(String(describing: slider))")
+                    }
+                    .onViewWillAppear { slider in
+                        print("onViewWillAppear \(String(describing: slider))")
+                    }
+                    .onViewWillDisappear { slider in
+                        print("onViewWillDisappear \(String(describing: slider))")
+                    }
+                    .onViewDidDisappear { slider in
+                        print("onViewDidDisappear \(String(describing: slider))")
+                    }
 
                 List {
                     ForEach(0..<100) { i in
