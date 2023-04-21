@@ -56,12 +56,16 @@ extension CocoaViewControllerBridging {
         self
             .hidden()
             .allowsHitTesting(true)
-            .overlay(OverlayView(
-                for: type,
-                content: {
-                    self
-                }, customize: {
-                    handler($0)
-                }))
+            .overlay(
+                OverlayView(
+                    for: type,
+                    content: {
+                        self
+                    },
+                    customize: {
+                        handler($0)
+                    }
+                )
+            )
     }
 }
