@@ -38,6 +38,7 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
 
     func makeUIViewController(context: Context) -> UIViewControllerType {
         let controller = OverlayHostingController(rootView: content())
+        controller.view.backgroundColor = .clear
         controller.updateHandler = { controller in
             update(controller)
         }
@@ -47,6 +48,7 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         DispatchQueue.main.async {
             uiViewController.rootView = content()
+            uiViewController.view.backgroundColor = .clear
             update(uiViewController)
             uiViewController.shouldUpdate = true
         }
