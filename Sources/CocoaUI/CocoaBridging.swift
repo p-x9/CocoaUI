@@ -9,12 +9,12 @@
 import SwiftUI
 
 public protocol CocoaViewBridging: SwiftUI.View {
-    associatedtype DefaultCocoaType: CocoaView
+    associatedtype DefaultCocoaViewType: CocoaView
 }
 
 extension CocoaViewBridging {
-    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> some View {
-        inject(type: DefaultCocoaType.self, handler: handler)
+    public func cocoa(_ handler: @escaping ((DefaultCocoaViewType) -> Void)) -> some View {
+        inject(type: DefaultCocoaViewType.self, handler: handler)
     }
 
     public func cocoa<T: CocoaView>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> some View {
@@ -38,12 +38,12 @@ extension CocoaViewBridging {
 }
 
 public protocol CocoaViewControllerBridging: SwiftUI.View {
-    associatedtype DefaultCocoaType: CocoaViewController
+    associatedtype DefaultCocoaControllerType: CocoaViewController
 }
 
 extension CocoaViewControllerBridging {
-    public func cocoa(_ handler: @escaping ((DefaultCocoaType) -> Void)) -> some View {
-        inject(type: DefaultCocoaType.self, handler: handler)
+    public func cocoa(_ handler: @escaping ((DefaultCocoaControllerType) -> Void)) -> some View {
+        inject(type: DefaultCocoaControllerType.self, handler: handler)
     }
 
     public func cocoa<T: CocoaViewController>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> some View {

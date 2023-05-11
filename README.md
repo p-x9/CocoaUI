@@ -50,7 +50,11 @@ If the specified type is not found, the closure will not be called.
 ### Support additional component
 ```swift
 extension XXView: CocoaViewBridging { // confirms `CocoaViewBridging`
-    public typealias DefaultCocoaType = XXCocoaView // UIKit/Cocoa type
+    public typealias DefaultCocoaViewType = XXCocoaView // UIKit/Cocoa type
+}
+
+extension YYView: CocoaViewControllerBridging { // confirms `CocoaViewControllerBridging`
+    public typealias DefaultCocoaControllerType = YYCocoaViewController // UIKit/Cocoa type
 }
 ```
 
