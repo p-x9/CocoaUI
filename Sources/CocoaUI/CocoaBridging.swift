@@ -8,30 +8,24 @@
 
 import SwiftUI
 
-public protocol CocoaViewBridging: SwiftUI.View {
+// MARK: View ⇄ CocoaView
+public protocol DefaultCocoaViewBridging: SwiftUI.View {
     associatedtype DefaultCocoaViewType: CocoaView
 }
 
-extension CocoaViewBridging {
+extension DefaultCocoaViewBridging {
     public func cocoa(_ handler: @escaping ((DefaultCocoaViewType) -> Void)) -> CocoaBridgeView<Self, DefaultCocoaViewType> {
         CocoaBridgeView(self, customize: handler)
     }
-
-    public func cocoa<T: CocoaView>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
-        CocoaBridgeView(self, customize: handler)
-    }
 }
 
-public protocol CocoaViewControllerBridging: SwiftUI.View {
+// MARK: View ⇄ CocoaViewController
+public protocol DefaultCocoaViewControllerBridging: SwiftUI.View  {
     associatedtype DefaultCocoaControllerType: CocoaViewController
 }
 
-extension CocoaViewControllerBridging {
+extension DefaultCocoaViewControllerBridging {
     public func cocoa(_ handler: @escaping ((DefaultCocoaControllerType) -> Void)) -> CocoaBridgeView<Self, DefaultCocoaControllerType> {
-        CocoaBridgeView(self, customize: handler)
-    }
-
-    public func cocoa<T: CocoaViewController>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
         CocoaBridgeView(self, customize: handler)
     }
 }
