@@ -22,7 +22,9 @@ Therefore, it can be customized by directly referencing the UISlider object as f
 ![Slider](https://user-images.githubusercontent.com/50244599/229353608-86eb9a3c-815e-4919-9f44-1cc35d244d7e.png)
 
 ## Document
-For components conforming to the protocol named `CocoaViewBridging`, you can get UIKit/Cocoa objects as follows.
+For components conforming to the protocol named `DefaultCocoaViewBridging`, you can get UIKit/Cocoa objects as follows.
+`DefaultCocoaViewBridging` gets the UIView object from SwiftUI.View.
+In contrast, `DefaultCocoaControllerBridging` gets the UIViewController object.
 </br>
 The CocoaBriding protocol defines a `DefaultCocoaType`.　　
 For example, for Toggle, the DefaultCocoaType is UISwitch(iOS).　　
@@ -44,16 +46,16 @@ Toggle("Hello", isOn: .constant(true))
        button.layer.borderWidth = 1
     }
 ```
-
+The method of specifying the type is defined in SwiftUI.View's and does not need to conform to the `DefaultCocoaViewBridging` or `DefaultCocoaControllerBridging ` protocols.
 If the specified type is not found, the closure will not be called.
 
 ### Support additional component
 ```swift
-extension XXView: CocoaViewBridging { // confirms `CocoaViewBridging`
+extension XXView: DefaultCocoaViewBridging { // confirms `DefaultCocoaViewBridging`
     public typealias DefaultCocoaViewType = XXCocoaView // UIKit/Cocoa type
 }
 
-extension YYView: CocoaViewControllerBridging { // confirms `CocoaViewControllerBridging`
+extension YYView: DefaultCocoaViewControllerBridging { // confirms `DefaultCocoaViewControllerBridging`
     public typealias DefaultCocoaControllerType = YYCocoaViewController // UIKit/Cocoa type
 }
 ```
