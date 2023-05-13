@@ -5,6 +5,7 @@
 //  Created by p-x9 on 2023/04/01.
 //  
 //
+import SwiftUI
 
 extension CocoaView {
     func find<T>(for type: T.Type) -> T? {
@@ -29,5 +30,13 @@ extension CocoaViewController {
             }
         }
         return self as? T
+    }
+}
+
+extension View {
+    func set<T>(_ value: T, for keyPath: WritableKeyPath<Self, T>) -> Self {
+        var new = self
+        new[keyPath: keyPath] = value
+        return new
     }
 }
