@@ -9,10 +9,6 @@
 import SwiftUI
 import CocoaUI
 
-extension Text: CocoaViewControllerBridging {
-    public typealias DefaultCocoaControllerType = CocoaViewController
-}
-
 struct ContentView: View {
     @State var value: Float = 0
     @State var toggle: Bool = true
@@ -39,7 +35,7 @@ struct ContentView: View {
                         ForEach(0..<100) { i in
                             NavigationLink {
                                 Text("data \(i)")
-                                    .cocoa { vc in
+                                    .cocoa(for: CocoaViewController.self) { vc in
                                         print(vc)
                                     }
                                     .onViewWillAppear { vc in
@@ -48,6 +44,7 @@ struct ContentView: View {
                                     .onViewWillDisappear { vc in
                                         vc?.tabBarController?.tabBar.isHidden = false
                                     }
+                                    .background(Color.cyan)
                             } label: {
                                 Text("data \(i)")
                             }
