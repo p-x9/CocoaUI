@@ -60,6 +60,40 @@ extension YYView: DefaultCocoaViewControllerBridging { // confirms `DefaultCocoa
 }
 ```
 
+### LifeCycle Event Modifiers
+In some View lifecycle events, a modifier is provided to retrieve the obtained UIKit/Cocoa object.
+As an example, the following code hides the tabBar on push and redisplays it on pop.
+```swift
+TabView {
+    NavigationView {
+        List(0..<100) { i in
+            NavigationLink {
+                Text("Detail: \(i)")
+                    .cocoa(for: CocoaViewController.self) { vc in
+                        print(vc)
+                    }
+                    .onViewWillAppear { vc in
+                        // Hide TabBar
+                        vc?.tabBarController?.tabBar.isHidden = true
+                    }
+                    .onViewWillDisappear { vc in
+                        // Show TabBar
+                        vc?.tabBarController?.tabBar.isHidden = false
+                    }
+            } label: {
+                Text("Row: \(i)")
+            }
+        }
+    }
+}
+```
+
+The following modifiers are available.
+- onViewWillAppear
+- onViewDidLoad
+- onViewWillDisappear
+- onViewDidDisAppear
+
 ## SwiftUI and Cocoa correspondence table
 This may vary depending on the operating system and usage conditions.
 
