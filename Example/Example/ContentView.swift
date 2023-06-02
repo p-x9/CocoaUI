@@ -89,16 +89,30 @@ struct ContentView: View {
                         .padding(.vertical)
 
                     Toggle(toggle ? "on" : "off", isOn: $toggle)
-                        .cocoa { `switch` in
+                        .cocoa(
+                            customize: { `switch` in
 #if canImport(UIKit)
-                            `switch`.onTintColor = .red
-                            `switch`.tintColor = .red
-                            `switch`.layer.borderWidth = 1
+                                `switch`.onTintColor = .red
+                                `switch`.tintColor = .red
+                                `switch`.layer.borderWidth = 1
 #elseif canImport(Cocoa)
-                            `switch`.wantsLayer = true
-                            `switch`.layer?.borderWidth = 5
+                                `switch`.wantsLayer = true
+                                `switch`.layer?.borderWidth = 5
 #endif
-                        }
+                            },
+                            onViewWillAppear: {
+                                print("onViewWillAppear", $0)
+                            },
+                            onViewDidAppear: {
+                                print("onViewDidAppear", $0)
+                            },
+                            onViewWillDisappear: {
+                                print("onViewWillDisappear", $0)
+                            },
+                            onViewDidDisappear: {
+                                print("onViewDidDisappear", $0)
+                            }
+                        )
 
                     Stepper("stepper", value: $stepperValue)
                         .cocoa { stepper in

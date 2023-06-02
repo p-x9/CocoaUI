@@ -10,16 +10,26 @@ import SwiftUI
 
 public struct CocoaBridgeView<Content: View, CocoaType: NSObject>: View {
     let content: Content
-    let customize: (CocoaType) -> Void
+    var customize: ((CocoaType) -> Void)?
 
     var onViewWillAppear: ((CocoaType?) -> Void)?
     var onViewDidAppear: ((CocoaType?) -> Void)?
     var onViewWillDisappear: ((CocoaType?) -> Void)?
     var onViewDidDisappear: ((CocoaType?) -> Void)?
 
-    init(_ content: Content, customize: @escaping ((CocoaType) -> Void)) {
+    init(_ content: Content,
+         customize: ((CocoaType) -> Void)? = nil,
+         onViewWillAppear: ((CocoaType?) -> Void)? = nil,
+         onViewDidAppear: ((CocoaType?) -> Void)? = nil,
+         onViewWillDisappear: ((CocoaType?) -> Void)? = nil,
+         onViewDidDisappear: ((CocoaType?) -> Void)? = nil
+    ) {
         self.content = content
         self.customize =  customize
+        self.onViewWillAppear = onViewWillAppear
+        self.onViewDidAppear = onViewDidAppear
+        self.onViewWillDisappear = onViewWillDisappear
+        self.onViewDidDisappear = onViewDidDisappear
     }
 
     public var body: some View {
@@ -32,17 +42,21 @@ public struct CocoaBridgeView<Content: View, CocoaType: NSObject>: View {
                     content: {
                         content
                     },
-                    customize: customize
+                    customize: customize,
+                    onViewWillAppear: onViewWillAppear,
+                    onViewDidAppear: onViewDidAppear,
+                    onViewWillDisappear: onViewWillDisappear,
+                    onViewDidDisappear: onViewDidDisappear
                 )
-                .onViewWillAppear(onViewWillAppear)
-                .onViewDidAppear(onViewDidAppear)
-                .onViewWillDisappear(onViewWillDisappear)
-                .onViewDidDisappear(onViewDidDisappear)
             )
     }
 }
 
 extension CocoaBridgeView {
+    public func customize(_ handler: @escaping (CocoaType) -> Void) -> Self {
+        set(handler, for: \.customize)
+    }
+
     public func onViewWillAppear(_ handler: @escaping (CocoaType?) -> Void) -> Self {
         set(handler, for: \.onViewWillAppear)
     }

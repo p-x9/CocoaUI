@@ -1,15 +1,5 @@
 import SwiftUI
 
-extension View {
-    public func cocoa<T: CocoaView>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
-        CocoaBridgeView(self, customize: handler)
-    }
-
-    public func cocoa<T: CocoaViewController>(for type: T.Type, _ handler: @escaping ((T) -> Void)) -> CocoaBridgeView<Self, T> {
-        CocoaBridgeView(self, customize: handler)
-    }
-}
-
 extension ScrollView: DefaultCocoaViewBridging {
     public typealias DefaultCocoaViewType = CocoaScrollView
 }
