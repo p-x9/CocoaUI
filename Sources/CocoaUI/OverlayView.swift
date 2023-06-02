@@ -10,16 +10,28 @@ import SwiftUI
 
 struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepresentable {
     let content: () -> Content
-    let customize: (CocoaType) -> Void
+    var customize: ((CocoaType) -> Void)?
 
     var onViewWillAppear: ((CocoaType?) -> Void)?
     var onViewDidAppear: ((CocoaType?) -> Void)?
     var onViewWillDisappear: ((CocoaType?) -> Void)?
     var onViewDidDisappear: ((CocoaType?) -> Void)?
 
-    init(for type: CocoaType.Type, content: @escaping () -> Content, customize: @escaping (CocoaType) -> Void) {
+    init(
+        for type: CocoaType.Type,
+        content: @escaping () -> Content,
+        customize: ((CocoaType) -> Void)?,
+        onViewWillAppear: ((CocoaType?) -> Void)?,
+        onViewDidAppear: ((CocoaType?) -> Void)?,
+        onViewWillDisappear: ((CocoaType?) -> Void)?,
+        onViewDidDisappear: ((CocoaType?) -> Void)?
+    ) {
         self.content = content
         self.customize = customize
+        self.onViewWillAppear = onViewWillAppear
+        self.onViewDidAppear = onViewDidAppear
+        self.onViewWillDisappear = onViewWillDisappear
+        self.onViewDidDisappear = onViewDidDisappear
     }
 
     func findTarget(from controller: CocoaViewController) -> CocoaType? {
@@ -37,7 +49,7 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
         guard let target = findTarget(from: controller) else {
             return
         }
-        customize(target)
+        customize?(target)
     }
 
     func updateHandlers(for controller: OverlayHostingController<Content>) {
@@ -108,6 +120,10 @@ struct OverlayView<Content: View, CocoaType: NSObject>: CocoaViewControllerRepre
 }
 
 extension OverlayView {
+    func customize(_ handler: ((CocoaType) -> Void)?) -> Self {
+        set(handler, for: \.customize)
+    }
+
     func onViewWillAppear(_ handler: ((CocoaType?) -> Void)?) -> Self {
         set(handler, for: \.onViewWillAppear)
     }
