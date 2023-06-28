@@ -129,7 +129,7 @@ extension NavigationView: DefaultCocoaViewBridging {
 }
 #elseif canImport(UIKit) && os(tvOS)
 extension NavigationView: DefaultCocoaViewControllerBridging {
-    public typealias DefaultCocoaViewType = UINavigationController
+    public typealias DefaultCocoaControllerType = UINavigationController
 }
 #endif
 
